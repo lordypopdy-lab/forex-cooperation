@@ -15,10 +15,10 @@ import { Toaster } from 'react-hot-toast';
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-axios.defaults.baseURL = 'https://forexserver.vercel.app/';
+axios.defaults.baseURL = 'https://forexserver.vercel.app';
 axios.defaults.withCredentials = true;
 
-//https://forexserver.vercel.app/
+//https://forexserver.vercel.app
 
 function App() {
 
