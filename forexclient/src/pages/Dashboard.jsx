@@ -52,7 +52,9 @@ const Dashboard = () => {
         window.location.href = "/contact"
     }
 
-
+const getLoan = ()=> {
+    window.location.href = "/loan"
+}
 
     return (
         <>
@@ -105,21 +107,20 @@ const Dashboard = () => {
                                     <div style={{ border: "none", borderRadius: "9px" }} className="card card-gradient">
                                         <div className="card-body">
                                             <div className="row">
-                                                <div style={{ marginBottom: "-50px" }} className="col-9">
+                                                <div className="col-6">
                                                     <h6 className="text-muted font-weight-normal">Bonuse</h6>
                                                     <div className="d-flex align-items-center align-self-start">
                                                         <h5 style={{ fontSize: "24px" }} className="display-4 ls-3 text-center">{isBalanceVisible ? <><span className="text-600">{user.currency && user.currency}</span>{user.bonuse && user.bonuse}.00</> : "******"}</h5>
                                                         <p className="text-warning ml-2 mb-0 font-weight-medium">+18%</p>
                                                     </div>
-
+                                                    <button className="btn p-2 btn-gray mt-1">Get Started <span className="fas fa-arrow-right"></span></button>
                                                 </div>
-                                                <div className="col-3">
-                                                    <div className="icon icon-box-warning">
-                                                        <span className="mdi mdi-arrow-top-right icon-item"></span>
-                                                    </div>
+                                                <div className="col-6">
+                                                    <img style={{marginLeft: "30px", borderRadius: "5px"}} src="/img/credit.jpg" height={50} width={120} alt="" srcset="" />
+                                                <button onClick={getLoan} className="btn mt-1 btn-gray">Get Loan Now<span className="fas m-1 fa-arrow-right"></span></button>
                                                 </div>
                                             </div>
-                                            <button className="btn p-2 btn-gray mt-4">Get Started <span className="fas fa-arrow-right"></span></button>
+                    
                                         </div>
                                     </div>
                                 </div>

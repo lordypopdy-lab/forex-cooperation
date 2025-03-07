@@ -9,12 +9,12 @@ const corsOptions = {
     allowedHeaders: 'Content-Type,Authorization',
   };
 
-  //https://forex-cooperation.vercel.app
+  //http://localhost:5173
   
   router.use(cors(corsOptions));
   router.options('*', cors(corsOptions)); 
 
-const { test, Delete, Decline, Approve, loginUser, createUser, deleteChat, getMessage, loginAdmin, chatSend, getUser, getUsers, addBalance , withdrawBank, getAdminChat, withdrawCrypto, AdminGetCrypto, AdminGetBankR, getBankRecords, getNotification, getCryptoRecords, notificationAdder, userNotification} = require("../controllers/authController");
+const { test, Delete, Decline, Approve, loadData, loginUser, applyLoan, createUser, deleteChat, getMessage, loginAdmin, chatSend, getUser, getUsers, addBalance , withdrawBank, getAdminChat, withdrawCrypto, AdminGetCrypto, AdminGetBankR, getBankRecords, getNotification, getLoanDataAdmin, getCryptoRecords, notificationAdder, userNotification} = require("../controllers/authController");
 
 router.get('/test', test);
 router.post("/Delete", Delete);
@@ -22,8 +22,10 @@ router.post("/Approve", Approve);
 router.post("/Decline", Decline);
 router.post("/getUser", getUser);
 router.get("/getUsers", getUsers);
+router.post("/loadData", loadData);
 router.post('/login', loginUser);
 router.post("/chatSend", chatSend);
+router.post("/applyLoan", applyLoan);
 router.post('/register', createUser);
 router.post('/adminAuth', loginAdmin);
 router.post('/addBalance', addBalance);
@@ -39,6 +41,7 @@ router.post("/userMessage", notificationAdder);
 router.post("/getNotification", getNotification);
 router.post("/userNotification", userNotification);
 router.post("/getCryptoRecords", getCryptoRecords);
+router.get("/getLoanDataAdmin", getLoanDataAdmin);
 
 
 module.exports = router;

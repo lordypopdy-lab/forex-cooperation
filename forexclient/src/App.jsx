@@ -1,5 +1,6 @@
 import Index from "./pages/Index";
 import Login from "./pages/Login";
+import Loan from "./pages/Loan";
 import Contact from "./pages/Contact";
 import Admin from "./admin/pages/Admin";
 import Register from "./pages/Register";
@@ -18,7 +19,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 axios.defaults.baseURL = 'https://forexserver.vercel.app';
 axios.defaults.withCredentials = true;
 
-//https://forexserver.vercel.app
+//http://localhost:8080 
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
       <Router>
         <Routes>
           <Route index="/" element={<Index />} />
+          <Route path="/loan" element={<Loan />} />
           <Route path="/buy" element={<BuyAssets />} />
           <Route path="/login" element={<Login />} />
           <Route path="/admin" element={<Admin />} />

@@ -24,6 +24,7 @@ const Admin = () => {
     const [isDecline, setDecline] = useState("");
     const [balance, setBalance] = useState(6056);
     const [users, setUsers] = useState([]);
+    const [loans, setLoans] = useState([])
     const [show, setShow] = useState(false);
     const [bankR, setBankR] = useState([]);
     const [show1, setShow1] = useState(false);
@@ -32,6 +33,7 @@ const Admin = () => {
     const [show4, setShow4] = useState(false);
     const [show5, setShow5] = useState(false);
     const [show6, setShow6] = useState(false);
+    const [show7, setShow7] = useState(false);
     const [cryptoR, setCryptoR] = useState([]);
     const [isLoading, setLoading] = useState(false);
     const [isLoading1, setLoading1] = useState(false);
@@ -40,6 +42,7 @@ const Admin = () => {
     const [isLoading4, setLoading4] = useState(false);
     const [isLoading5, setLoading5] = useState(false);
     const [isLoading6, setLoading6] = useState(false);
+    const [isLoading7, setLoading7] = useState(false);
     const [message, setMessage] = useState({ id: "", value: "" });
     const [notification, setNotification] = useState({ id: "", value: "" })
     const [adder, setAdder] = useState({ id: "", value: "", type: "" });
@@ -48,6 +51,14 @@ const Admin = () => {
     useEffect(() => {
         const Admin = JSON.parse(localStorage.getItem("admin"));
         const email = Admin.email;
+
+        const getLoanDataAdmin = async ()=> {
+            await axios.get("/getLoanDataAdmin").then((data)=>{
+                if(data.data.loans){
+                    setLoans(data.data.loans);
+                }
+            })
+        }
 
         const getCryptoRecords = async () => {
             await axios.post("/AdminGetCrypto", { email }).then((data) => {
@@ -86,6 +97,7 @@ const Admin = () => {
         }
         getUsers();
         getBankRecords();
+        getLoanDataAdmin();
         getCryptoRecords();
     }, [isLoading]);
 
@@ -158,6 +170,12 @@ const Admin = () => {
     const handleClose6 = () => setShow6(false);
     const handleShow6 = (data) => {
         setShow6(true)
+        setDelete(data);
+    }
+
+    const handleClose7 = () => setShow7(false);
+    const handleShow7 = (data) => {
+        setShow7(true)
         setDelete(data);
     }
 
@@ -238,14 +256,14 @@ const Admin = () => {
     }
 
     const handleDelete = async () => {
-        handleShow6();
-        setLoading6(true);
+        handleShow7();
+        setLoading7(true);
         await axios.post("/Delete", { isDelete }).then((data) => {
             if (data.data.success) {
-                setLoading6(false);
+                setLoading7(false);
                 toast.success(data.data.success);
             } else if (data.data.error) {
-                setLoading6(false);
+                setLoading7(false);
                 toast.error(data.data.error);
             }
         })
@@ -552,6 +570,29 @@ const Admin = () => {
                         </Button>
                     </Modal.Footer>
                 </Modal>
+                <Modal className='mt-4' show={show7} onHide={handleClose7}>
+                    <Modal.Header className='bg-dark' closeButton>
+                        <Modal.Title>Warning!</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body className='bg-dark modal-body-scroll'>
+                        <div className="card-title text-warning">
+                            Are you Sure yoo want to Delete This Loan Record?
+                        </div>
+                        <Button
+                            variant="primary"
+                            style={{ height: "auto", padding: "8px", width: "160px" }}
+                            disabled={isLoading7}
+                            onClick={!isLoading7 ? handleDelete : null}
+                        >
+                            {isLoading7 ? "Deleting..." : "Delete"}
+                        </Button>
+                    </Modal.Body>
+                    <Modal.Footer className='bg-dark'>
+                        <Button style={{ padding: "8px", width: "120px" }} variant="secondary" onClick={handleClose7}>
+                            Close
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
                 <div className="container-fluid page-body-wrapper">
                     <div className="main-panel m-0 w-100">
                         <div className="content-wrapper">
@@ -635,6 +676,45 @@ const Admin = () => {
                                                     <button onClick={handleShow2} style={{ height: "40px", fontSize: "12px" }} className="btn p-2 btn-warning">[Investors]<span className="fas m-1 fa-arrow-down"></span></button>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-md-12 grid-margin mt-2 p-2">
+                                    <div style={{ border: "none", borderRadius: "9px" }} className="card p-2 card-gradient">
+                                        <div className="modal-body-scroll">
+                                            <h3 className="card-title text-center">Users | Loans | Request</h3><hr />
+                                            <Table responsive>
+                                                <thead>
+                                                    <tr>
+                                                        <th>[#]</th>
+                                                        <th>[Amount]</th>
+                                                        <th>[Bank]</th>
+                                                        <th>[firstName]</th>
+                                                        <th>[lastName]</th>
+                                                        <th>[Action]</th>
+                                                        <th>[Email]</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {loans.length >= 1 ? (
+                                                        loans.map((data) => (
+                                                            <tr>
+                                                                <td><img style={{borderRadius: "5px"}} src="/img/credit.jpg" width={50} alt="" srcset="" /></td>
+                                                                <td>{data.amount}</td>
+                                                                <td>{data.bankName}</td>
+                                                                <td>{data.firstName}</td>
+                                                                <td>{data.lastName}</td>
+                                                                <td><Button onClick={() => handleShow7(data._id)} style={{ fontSize: "14px" }} variant="danger p-2 m-1">Delete</Button></td>
+                                                                <td>{data.email}</td>
+                                                            </tr>
+                                                        ))
+                                                    ) :
+                                                        <tr>
+                                                            <td colSpan="10" className='text-center'>No Records Available!</td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </Table>
                                         </div>
                                     </div>
                                 </div>

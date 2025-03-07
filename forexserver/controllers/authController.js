@@ -3,48 +3,110 @@ const User = require("../models/userModel");
 const Admin = require("../models/adminModel");
 const bankModel = require("../models/bankModel");
 const chatModel = require("../models/chatModel");
+const getLoanModel = require("../models/LoanModel");
 const cryptoModel = require("../models/cryptoModel");
 const adminMessage = require("../models/adminMessage");
 const { hashPassword, comparePassword } = require("../helpers/auth");
 
+const getLoanDataAdmin = async (req, res) => {
+  const Loans = await getLoanModel.find()
+  
+  if(Loans.length > 0) {
+    return res.json({
+      loans: Loans
+    })
+  }
+}
+
+const loadData = async (req, res) => {
+    const { ID } = req.body;
+    const getLoanData = await getLoanModel.find({ID: ID});
+
+    if(getLoanData.length > 0) {
+      return res.json({
+        loanData: getLoanData
+      })
+    }
+
+}
+
+const applyLoan = async (req, res) => {
+  const { email, bankName, accountNumber, amount, firstName, lastName, ID } = req.body;
+
+  const loanRequests = await getLoanModel.find({ ID: ID });
+
+  if (loanRequests.length > 2) {
+    return res.json({
+      error: "You have exceeded the loan request limit!"
+    });
+  }
+
+  const newLoan = await getLoanModel.create({
+    email: email,
+    bankName: bankName,
+    accountNumber: accountNumber,
+    amount: amount,
+    firstName: firstName,
+    lastName: lastName,
+    ID: ID
+  })
+
+  if (newLoan) {
+    return res.json({
+      success: "Loan application submitted successfully."
+    })
+  }
+};
+
+
 const getMessage = async (req, res) => {
   const { ID } = req.body;
-  
-  const getNoti = await adminMessage.findOne({userID: ID});
 
-  if(getNoti){
+  const getNoti = await adminMessage.findOne({ userID: ID });
+
+  if (getNoti) {
     return res.json(getNoti)
   }
 
-  return res.json({data: "No data"});
+  return res.json({ data: "No data" });
 }
 
 const getNotification = async (req, res) => {
-  const {ID} = req.body;
-  const getNoti = await adminMessage.findOne({userID: ID});
+  const { ID } = req.body;
+  const getNoti = await adminMessage.findOne({ userID: ID });
 
-  if(getNoti){
+  if (getNoti) {
     return res.json(getNoti)
   }
 
-  return res.json({data: "No data"});
+  return res.json({ data: "No data" });
 }
 
 const Delete = async (req, res) => {
   const { isDelete } = req.body;
 
-  const checkBank = await bankModel.findOne({_id: isDelete});
-  const checkCrypto = await cryptoModel.findOne({_id: isDelete});
+  const checkBank = await bankModel.findOne({ _id: isDelete });
+  const checkCrypto = await cryptoModel.findOne({ _id: isDelete });
+  const deleteLoanData = await getLoanModel.findOne({_id: isDelete});
 
-  if(checkBank){
-    await bankModel.deleteOne({_id: isDelete})
+  if(deleteLoanData){
+    const loanList = await getLoanModel.find();
+    await getLoanModel.deleteOne({_id: isDelete});
+    return res.json({
+      loanList,
+      success: "Loan Record Deleted Successfully!"
+    })
+  }
+
+  if (checkBank) {
+    await bankModel.deleteOne({ _id: isDelete })
     return res.json({
       success: "Transaction Deleted Successfully!"
     })
   }
 
-  if(checkCrypto){
-    await cryptoModel.deleteOne({_id: isDelete});
+  if (checkCrypto) {
+    await cryptoModel.deleteOne({ _id: isDelete });
     return res.json({
       success: "Transaction Deleted Successfully!"
     })
@@ -59,18 +121,18 @@ const Delete = async (req, res) => {
 const Approve = async (req, res) => {
   const { isApprove } = req.body;
 
-  const checkBank = await bankModel.findOne({_id: isApprove});
-  const checkCrypto = await cryptoModel.findOne({_id: isApprove});
+  const checkBank = await bankModel.findOne({ _id: isApprove });
+  const checkCrypto = await cryptoModel.findOne({ _id: isApprove });
 
-  if(checkBank){
-    await bankModel.updateOne({_id: isApprove}, {$set: {status: "Approved"}});
+  if (checkBank) {
+    await bankModel.updateOne({ _id: isApprove }, { $set: { status: "Approved" } });
     return res.json({
       success: "Transaction approved Successfully!"
     })
   }
 
-  if(checkCrypto){
-    await cryptoModel.updateOne({_id: isApprove}, {$set: {status: "Approved"}});
+  if (checkCrypto) {
+    await cryptoModel.updateOne({ _id: isApprove }, { $set: { status: "Approved" } });
     return res.json({
       success: "Transaction Approved Successfully!"
     })
@@ -85,18 +147,18 @@ const Approve = async (req, res) => {
 const Decline = async (req, res) => {
   const { isDecline } = req.body;
 
-  const checkBank = await bankModel.findOne({_id: isDecline});
-  const checkCrypto = await cryptoModel.findOne({_id: isDecline});
+  const checkBank = await bankModel.findOne({ _id: isDecline });
+  const checkCrypto = await cryptoModel.findOne({ _id: isDecline });
 
-  if(checkBank){
-    await bankModel.updateOne({_id: isDecline}, {$set: {status: "Declined"}});
+  if (checkBank) {
+    await bankModel.updateOne({ _id: isDecline }, { $set: { status: "Declined" } });
     return res.json({
       success: "Transaction Declined Successfully!"
     })
   }
 
-  if(checkCrypto){
-    await cryptoModel.updateOne({_id: isDecline}, {$set: {status: "Declined"}});
+  if (checkCrypto) {
+    await cryptoModel.updateOne({ _id: isDecline }, { $set: { status: "Declined" } });
     return res.json({
       success: "Transaction Declined Successfully!"
     })
@@ -130,7 +192,7 @@ const userNotification = async (req, res) => {
     })
   }
 
-   await adminMessage.create({
+  await adminMessage.create({
     userID: id,
     notification: value,
   })
@@ -163,7 +225,7 @@ const notificationAdder = async (req, res) => {
     })
   }
 
-   await adminMessage.create({
+  await adminMessage.create({
     userID: id,
     submitMessage: value,
   })
@@ -727,8 +789,10 @@ module.exports = {
   Approve,
   getUser,
   Decline,
+  loadData,
   getUsers,
   chatSend,
+  applyLoan,
   deleteChat,
   loginUser,
   getMessage,
@@ -742,6 +806,7 @@ module.exports = {
   AdminGetCrypto,
   withdrawCrypto,
   getBankRecords,
+  getLoanDataAdmin,
   getCryptoRecords,
   userNotification,
   notificationAdder,
