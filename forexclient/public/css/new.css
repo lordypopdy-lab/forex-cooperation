@@ -7,6 +7,10 @@
   color: black;
 }
 
+.text-sample {
+  color: rgb(181, 67, 67);
+}
+
 .custom-swal-title {
   font-size: 12px !important; /* Customize font size */
 }
