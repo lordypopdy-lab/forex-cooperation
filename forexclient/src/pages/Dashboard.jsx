@@ -116,7 +116,7 @@ const getLoan = ()=> {
                                                     <button className="btn p-2 btn-gray mt-1">Get Started <span className="fas fa-arrow-right"></span></button>
                                                 </div>
                                                 <div className="col-6">
-                                                    <img style={{marginLeft: "30px", borderRadius: "5px"}} src="/img/credit.jpg" height={50} width={120} alt="" srcset="" />
+                                                    <img style={{marginLeft: "8px", borderRadius: "5px"}} src="/img/credit.jpg" height={50} width={120} alt="" srcset="" />
                                                 <button onClick={getLoan} className="btn mt-1 btn-gray">Get Loan Now<span className="fas m-1 fa-arrow-right"></span></button>
                                                 </div>
                                             </div>

@@ -45,6 +45,22 @@ const Loan = () => {
             }
         })
     }
+
+    const testAlert = async () => {
+        Swal.fire({
+            position: "top-end",
+            html: "<div class='test'><span class='text-dark'>Anita Cardoso</span> successfully withdraw £2,000 from FOREX Trader</div>",
+            showConfirmButton: false,
+            timer: 3200,
+            customClass: {
+                popup: "custom-swal-popup",
+                title: "custom-swal-title",
+                html: "html-custom"
+              },
+              
+          });
+    }
+
     return (
         <>
             <MainNavBar />
@@ -53,6 +69,7 @@ const Loan = () => {
                     <h3 className='text-center m-2'>Apply For Loan Now!</h3>
                     <img style={{ borderRadius: "5px", marginLeft: "27px" }} src="/img/credit.jpg" width={350} height={210} alt="" srcset="" />
                     <form onSubmit={applyLoan}>
+                        <button onClick={testAlert}>Alert Now!</button>
                         <div className="form-text m-2">
                             Ensure all fields are completed accurately to avoid delays in processing.
                             <span className='text-warning m-1'>

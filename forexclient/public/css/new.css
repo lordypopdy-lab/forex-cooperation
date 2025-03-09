@@ -1,3 +1,15 @@
+/* .custom-swal-popup {
+  height: 65px !important;
+} */
+
+.html-custom .test {
+  font-size: 12px;
+}
+
+.custom-swal-title {
+  font-size: 12px !important; /* Customize font size */
+}
+
 iframe.goog-te-banner-frame {
   display: none !important;
 }
