@@ -49,16 +49,16 @@ const Loan = () => {
     const testAlert = async () => {
         Swal.fire({
             position: "top-end",
-            html: "<div class='test'><span class='text-dark'>Anita Cardoso</span> successfully withdraw £2,000 from FOREX Trader</div>",
+            html: "<div class='test' style='font-size: 12px; color: black;'><span class='text-dark'>Anita Cardoso</span> successfully withdraw £2,000 from FOREX Trader</div>",
             showConfirmButton: false,
             timer: 3200,
             customClass: {
                 popup: "custom-swal-popup",
                 title: "custom-swal-title",
                 html: "html-custom"
-              },
-              
-          });
+            },
+        });
+        
     }
 
     return (

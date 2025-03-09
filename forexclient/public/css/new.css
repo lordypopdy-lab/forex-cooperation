@@ -2,8 +2,9 @@
   height: 65px !important;
 } */
 
-.html-custom .test {
+.test {
   font-size: 12px;
+  color: black;
 }
 
 .custom-swal-title {
