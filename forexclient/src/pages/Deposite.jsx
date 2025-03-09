@@ -1,5 +1,6 @@
 import React from 'react'
 import toast from 'react-hot-toast'
+import AlertMessage from '../utils/AlertMessage';
 import MainNavBar from '../components/MainNavBar'
 
 const Deposite = () => {
@@ -17,6 +18,7 @@ const Deposite = () => {
     return (
         <>
             <MainNavBar />
+            <AlertMessage />
             <div style={{ marginTop: "80px" }} className="container-scroller">
                 <div className="container-fluid page-body-wrapper">
                     <div className="main-panel m-0 w-100">

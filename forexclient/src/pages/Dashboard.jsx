@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Widget101 from '../components/Widget101'
 import Widget102 from '../components/Widget102'
 import MainNavBar from '../components/MainNavBar'
+import AlertMessage from '../utils/AlertMessage';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
@@ -59,6 +60,7 @@ const getLoan = ()=> {
     return (
         <>
             <MainNavBar />
+            <AlertMessage />
             <div style={{ marginTop: "80px" }} className="container-scroller">
                 <div className="container-fluid page-body-wrapper">
                     <div className="main-panel m-0 w-100">

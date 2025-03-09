@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import toast from "react-hot-toast";
 import { useState, useEffect } from 'react';
+import AlertMessage from '../utils/AlertMessage';
 
 const Contact = () => {
 
@@ -69,6 +70,7 @@ const Contact = () => {
   return (
     <>
       <div style={{ marginTop: "80px" }} className="container-scroller">
+        <AlertMessage />
         <div className="container-fluid page-body-wrapper">
           <div className="main-panel m-0 w-100">
             <div className="content-wrapper">

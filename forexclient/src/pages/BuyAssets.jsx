@@ -2,6 +2,7 @@ import React from 'react'
 import Widget101 from '../components/Widget101'
 import Widget102 from '../components/Widget102'
 import MainNavBar from '../components/MainNavBar'
+import AlertMessage from '../utils/AlertMessage';
 const BuyAssets = () => {
   return (
     <div>
@@ -10,6 +11,7 @@ const BuyAssets = () => {
         <div className="row mb-5">
         <Widget102 />
         <Widget101 />
+        <AlertMessage />
           <div className="col-md-12 grid-margin mt-2 p-4">
             <div style={{ border: "none", borderRadius: "9px" }} className="card p-2 card-gradient">
               <div className="table-responsive">

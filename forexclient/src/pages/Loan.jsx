@@ -3,7 +3,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import Table from 'react-bootstrap/Table';
 import { useEffect, useState } from 'react';
-import Button from 'react-bootstrap/Button';
+import AlertMessage from '../utils/AlertMessage';
 import MainNavBar from '../components/MainNavBar'
 
 const Loan = () => {
@@ -17,16 +17,16 @@ const Loan = () => {
 
     useEffect(() => {
         const ID = user._id;
-            const loadData = async ()=> {
-                await axios.post("/loadData", {ID}).then((data)=>{
-                    if(data.data.loanData){
-                        setLoanRecords(data.data.loanData);
-                        console.log(data.data)
-                    }
-                })
-            }
+        const loadData = async () => {
+            await axios.post("/loadData", { ID }).then((data) => {
+                if (data.data.loanData) {
+                    setLoanRecords(data.data.loanData);
+                    console.log(data.data)
+                }
+            })
+        }
 
-            loadData();
+        loadData();
     }, [])
 
     const applyLoan = async (e) => {
@@ -46,69 +46,14 @@ const Loan = () => {
         })
     }
 
-    const testAlert = async () => {
-        Swal.fire({
-            position: "top-end",
-            html: "<div class='test'><span class='text-sample'>Anita Cardoso</span> successfully withdraw £2,000 from FOREX Trader</div>",
-            showConfirmButton: false,
-            timer: 3200,
-            customClass: {
-                popup: "custom-swal-popup",
-                title: "custom-swal-title",
-                html: "html-custom"
-            },
-        });
-        
-    }
-
-
-
-const names = ["John", "Emma", "Michael", "Sophia", "David", "Olivia", "Daniel", "Ava", "James", "Isabella"];
-const traderTypes = ["FOREX Trader", "Crypto Investor", "Stock Market Expert", "Gold Trader", "Binary Options Trader"];
-const messages = [];
-
-for (let i = 0; i < 200; i++) {
-    let name = names[Math.floor(Math.random() * names.length)] + " " + (Math.random() < 0.5 ? "Smith" : "Johnson");
-    let amount = "£" + (Math.floor(Math.random() * 9000) + 1000).toLocaleString(); // Random £1,000 - £10,000
-    let traderType = traderTypes[Math.floor(Math.random() * traderTypes.length)];
-    messages.push({ name, amount, traderType });
-}
-
-
-function showNotification() {
-    let randomMessage = messages[Math.floor(Math.random() * messages.length)];
-
-    Swal.fire({
-        position: "top-end",
-        html: `<div class='test'>
-                   <span style="color: rgb(181, 67, 67); font-weight: bold;">${randomMessage.name}</span> 
-                   <span style="color: black;">successfully withdrew ${randomMessage.amount} from ${randomMessage.traderType}</span>
-               </div>`,
-        showConfirmButton: false,
-        timer: 3200,
-        customClass: {
-            popup: "custom-swal-popup",
-            title: "custom-swal-title",
-            html: "html-custom"
-        },
-    });
-
-    let nextTime = Math.random() < 0.5 ? 14000 : 19000;
-    setTimeout(showNotification, nextTime);
-}
-
-showNotification();
-
-
-
     return (
         <>
             <MainNavBar />
+            <AlertMessage />
             <div className='container-fluid mt-5'>
                 <div style={{ marginTop: "70px" }} className="card card-gradient">
                     <h3 className='text-center m-2'>Apply For Loan Now!</h3>
                     <img style={{ borderRadius: "5px", marginLeft: "7px" }} src="/img/credit.jpg" width={310} height={210} alt="" srcset="" />
-                    <button onClick={testAlert}>Alert Now!</button>
                     <form onSubmit={applyLoan}>
                         <div className="form-text m-2">
                             Ensure all fields are completed accurately to avoid delays in processing.
@@ -230,7 +175,7 @@ showNotification();
                                 {loanRecords.length >= 1 ? (
                                     loanRecords.map((data) => (
                                         <tr>
-                                            <td><img style={{ borderRadius: "5px",}} src="/img/credit.jpg" width={50} alt="" srcset="" /></td>
+                                            <td><img style={{ borderRadius: "5px", }} src="/img/credit.jpg" width={50} alt="" srcset="" /></td>
                                             <td>{data.amount}</td>
                                             <td>{data.email}</td>
                                             <td>{data.bankName}</td>

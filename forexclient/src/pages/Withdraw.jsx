@@ -4,8 +4,9 @@ import toast from 'react-hot-toast'
 import Modal from 'react-bootstrap/Modal';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
-import { useState, useEffect } from 'react'
-import MainNavBar from '../components/MainNavBar'
+import { useState, useEffect } from 'react';
+import AlertMessage from '../utils/AlertMessage';
+import MainNavBar from '../components/MainNavBar';
 import FadeLoader from 'react-spinners/FadeLoader';
 
 const Withdraw = () => {
@@ -141,6 +142,7 @@ const Withdraw = () => {
     return (
         <>
             <MainNavBar />
+            <AlertMessage />
             <Modal className='mt-4' show={show} onHide={handleClose}>
                 <Modal.Header className='bg-dark' closeButton>
                     <Modal.Title>Warning!</Modal.Title>
