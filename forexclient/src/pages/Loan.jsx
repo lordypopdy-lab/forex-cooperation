@@ -67,7 +67,7 @@ const Loan = () => {
             <div className='container-fluid mt-5'>
                 <div style={{ marginTop: "70px" }} className="card card-gradient">
                     <h3 className='text-center m-2'>Apply For Loan Now!</h3>
-                    <img style={{ borderRadius: "5px", marginLeft: "27px" }} src="/img/credit.jpg" width={350} height={210} alt="" srcset="" />
+                    <img style={{ borderRadius: "5px", marginLeft: "27px" }} src="/img/credit.jpg" width={300} height={210} alt="" srcset="" />
                     <button onClick={testAlert}>Alert Now!</button>
                     <form onSubmit={applyLoan}>
                         <div className="form-text m-2">
