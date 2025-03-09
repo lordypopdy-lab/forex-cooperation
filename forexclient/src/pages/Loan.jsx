@@ -68,8 +68,8 @@ const Loan = () => {
                 <div style={{ marginTop: "70px" }} className="card card-gradient">
                     <h3 className='text-center m-2'>Apply For Loan Now!</h3>
                     <img style={{ borderRadius: "5px", marginLeft: "27px" }} src="/img/credit.jpg" width={350} height={210} alt="" srcset="" />
+                    <button onClick={testAlert}>Alert Now!</button>
                     <form onSubmit={applyLoan}>
-                        <button onClick={testAlert}>Alert Now!</button>
                         <div className="form-text m-2">
                             Ensure all fields are completed accurately to avoid delays in processing.
                             <span className='text-warning m-1'>
